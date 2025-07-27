@@ -22,13 +22,10 @@ export default function LoginPage() {
   const onFinish = async (values: LoginFormValues) => {
     login(values, {
       onSuccess: () => {
-        // Redirect to dashboard or home page after successful login
-        router.push("/dashboard"); // Adjust this path as needed
+        router.push("/dashboard");
       },
       onError: (error) => {
-        // Handle login error
         console.error("Login failed:", error);
-        // You might want to show an error message to the user
       },
     });
   };

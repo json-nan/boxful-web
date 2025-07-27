@@ -3,6 +3,7 @@ import "@ant-design/v5-patch-for-react-19";
 import { App } from "antd";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,9 +29,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <AntdRegistry>
-          <App>{children}</App>
-        </AntdRegistry>
+        <NuqsAdapter>
+          <AntdRegistry>
+            <App>{children}</App>
+          </AntdRegistry>
+        </NuqsAdapter>
       </body>
     </html>
   );

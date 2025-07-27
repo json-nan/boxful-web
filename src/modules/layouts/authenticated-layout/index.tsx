@@ -47,7 +47,6 @@ const AuthenticatedLayout: React.FC<{ children: React.ReactNode }> = ({
     },
   ];
 
-  // Get the current selected key based on pathname
   const selectedKey =
     menuItems.find((item) => pathname.startsWith(item.key))?.key ||
     "/dashboard";

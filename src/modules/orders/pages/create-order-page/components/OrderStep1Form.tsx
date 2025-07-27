@@ -33,7 +33,6 @@ export default function OrderStep1Form({
 }: OrderStep1FormProps) {
   const [form] = Form.useForm();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = (values: any) => {
     const formData: OrderFormStep1Data = {
       pickup_address: values.pickup_address,
@@ -52,7 +51,6 @@ export default function OrderStep1Form({
     onComplete(formData);
   };
 
-  // Set initial values if data exists
   const initialValues = initialData
     ? {
         pickup_address: initialData.pickup_address,

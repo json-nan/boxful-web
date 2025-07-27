@@ -34,19 +34,16 @@ export default function OrderStep2Form({ onComplete }: OrderStep2FormProps) {
   const { step2Data, setStep2Data, goToPreviousStep } = useOrderFormStore();
   const [items, setItems] = useState<OrderItem[]>(step2Data?.items || []);
 
-  // Set initial form values when component mounts or step2Data changes
   useEffect(() => {
     if (step2Data?.items && step2Data.items.length > 0) {
       setItems(step2Data.items);
     }
   }, [step2Data]);
 
-  // Auto-save items to store whenever they change
   useEffect(() => {
     setStep2Data({ items });
   }, [items, setStep2Data]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleAddItem = (values: any) => {
     const newItem: OrderItem = {
       width: values.width,
