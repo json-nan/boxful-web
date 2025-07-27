@@ -1,5 +1,6 @@
 "use client";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConfigProvider } from "antd";
 import "./auth-layout.css";
 
@@ -38,20 +39,31 @@ const theme = {
   },
 };
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <ConfigProvider theme={theme}>
-      <div className="signup-container">
-        <div className="signup-left-column">{children}</div>
+    <QueryClientProvider client={queryClient}>
+      <ConfigProvider theme={theme}>
+        <div className="signup-container">
+          <div className="signup-left-column">{children}</div>
 
-        <div className="signup-right-column" style={{}}>
-          {/* Empty column for future image */}
+          <div className="signup-right-column" style={{}}>
+            {/* Empty column for future image */}
+          </div>
         </div>
-      </div>
-    </ConfigProvider>
+      </ConfigProvider>
+    </QueryClientProvider>
   );
 }
