@@ -1,14 +1,5 @@
-"use client";
+import DashboardPage from "@/modules/dashboard/pages/dashboard-page";
 
-import React from "react";
-
-const DashboardPage: React.FC = () => {
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to your dashboard!</p>
-    </div>
-  );
-};
-
-export default DashboardPage;
+export default function Dashboard() {
+  return <DashboardPage />;
+}

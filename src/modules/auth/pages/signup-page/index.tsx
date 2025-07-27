@@ -2,6 +2,7 @@
 
 import { Genders } from "@/catalogues/Genders";
 import { PhoneCodes } from "@/catalogues/PhoneCodes";
+import { useSignUp } from "@/modules/auth/_api/auth";
 import {
   ArrowLeftOutlined,
   EyeInvisibleOutlined,
@@ -25,25 +26,32 @@ interface SignupFormValues {
   name: string;
   last_name: string;
   gender: string;
-  birth_ate: string;
+  birth_date: string;
   email: string;
   phone: string;
   password: string;
-  password_confirmation: string;
+  confirmPassword: string;
 }
 
 export default function SignupPage() {
   const [form] = Form.useForm<SignupFormValues>();
   const [confirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
+  const signUpMutation = useSignUp();
 
-  const onFinish = async (values: SignupFormValues) => {
+  const onFinish = async () => {
     setConfirmationDialogOpen(true);
   };
 
   const handleOk = async () => {
     setConfirmationDialogOpen(false);
-    // Here you would typically handle the form submission, e.g., send data to the server
-    console.log("Form submitted with values:", form.getFieldsValue());
+    const formValues = form.getFieldsValue();
+    const { confirmPassword, ...signUpData } = formValues;
+    
+    try {
+      await signUpMutation.mutateAsync(signUpData);
+    } catch (error) {
+      console.error("Sign up failed:", error);
+    }
   };
 
   return (
@@ -260,6 +268,7 @@ export default function SignupPage() {
               type="primary"
               htmlType="submit"
               className="signup-submit-button"
+              loading={signUpMutation.isPending}
             >
               Siguiente
             </Button>
