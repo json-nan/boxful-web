@@ -103,7 +103,7 @@ export default function OrderStep1Form({
       >
         {/* First Row: Pickup Address and Scheduled Date */}
         <Row gutter={20}>
-          <Col flex="auto">
+          <Col span={16}>
             <Form.Item
               name="pickup_address"
               label={
@@ -121,7 +121,7 @@ export default function OrderStep1Form({
               />
             </Form.Item>
           </Col>
-          <Col style={{ width: 313.33 }}>
+          <Col span={8}>
             <Form.Item
               name="programmed_date"
               label={
@@ -145,7 +145,7 @@ export default function OrderStep1Form({
 
         {/* Second Row: Names, Last Name, Email */}
         <Row gutter={20}>
-          <Col flex={1}>
+          <Col span={8}>
             <Form.Item
               name="name"
               label={
@@ -163,7 +163,7 @@ export default function OrderStep1Form({
               />
             </Form.Item>
           </Col>
-          <Col flex={1}>
+          <Col span={8}>
             <Form.Item
               name="last_name"
               label={
@@ -181,7 +181,7 @@ export default function OrderStep1Form({
               />
             </Form.Item>
           </Col>
-          <Col flex={1}>
+          <Col span={8}>
             <Form.Item
               name="email"
               label={
@@ -206,7 +206,7 @@ export default function OrderStep1Form({
 
         {/* Third Row: Phone and Delivery Address */}
         <Row gutter={20}>
-          <Col style={{ width: 313.33 }}>
+          <Col span={8}>
             <Form.Item
               label={
                 <Text
@@ -244,7 +244,7 @@ export default function OrderStep1Form({
               </Input.Group>
             </Form.Item>
           </Col>
-          <Col flex="auto">
+          <Col span={16}>
             <Form.Item
               name="deliver_address"
               label={
@@ -266,7 +266,7 @@ export default function OrderStep1Form({
 
         {/* Fourth Row: City, Municipality, Reference Point */}
         <Row gutter={20}>
-          <Col flex={1}>
+          <Col span={8}>
             <Form.Item
               name="city"
               label={
@@ -284,7 +284,7 @@ export default function OrderStep1Form({
               />
             </Form.Item>
           </Col>
-          <Col flex={1}>
+          <Col span={8}>
             <Form.Item
               name="municipality"
               label={
@@ -302,7 +302,7 @@ export default function OrderStep1Form({
               />
             </Form.Item>
           </Col>
-          <Col flex={1}>
+          <Col span={8}>
             <Form.Item
               name="reference_place"
               label={
@@ -320,53 +320,48 @@ export default function OrderStep1Form({
               />
             </Form.Item>
           </Col>
-        </Row>
-
-        {/* Fifth Row: Instructions */}
-        <Form.Item
-          name="indications"
-          label={
-            <Text style={{ fontSize: 12, fontWeight: 600, color: "#050817" }}>
-              Indicaciones
-            </Text>
-          }
-          rules={[{ required: true, message: "Campo requerido" }]}
-        >
-          <Input
-            style={{ height: 48, fontSize: 14 }}
-            placeholder="Indicaciones"
-          />
-        </Form.Item>
-
-        {/* Submit Button */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            marginTop: 24,
-          }}
-        >
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{
-              backgroundColor: "#2e49ce",
-              borderColor: "#2e49ce",
-              height: 47,
-              fontSize: 16,
-              fontWeight: 600,
-              borderRadius: 8,
-              paddingLeft: 12,
-              paddingRight: 12,
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-            }}
+          <Col span={24}>
+            <Form.Item
+              name="indications"
+              label={
+                <Text
+                  style={{ fontSize: 12, fontWeight: 600, color: "#050817" }}
+                >
+                  Indicaciones
+                </Text>
+              }
+              rules={[{ required: true, message: "Campo requerido" }]}
+            >
+              <Input
+                style={{ height: 48, fontSize: 14 }}
+                placeholder="Indicaciones"
+              />
+            </Form.Item>
+          </Col>
+          <Col
+            span={24}
+            style={{ justifyContent: "flex-end", display: "flex" }}
           >
-            Siguiente
-            <ArrowRightOutlined />
-          </Button>
-        </div>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{
+                height: 47,
+                fontSize: 16,
+                fontWeight: 600,
+                borderRadius: 8,
+                paddingLeft: 12,
+                paddingRight: 12,
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
+              Siguiente
+              <ArrowRightOutlined />
+            </Button>
+          </Col>
+        </Row>
       </Form>
     </div>
   );

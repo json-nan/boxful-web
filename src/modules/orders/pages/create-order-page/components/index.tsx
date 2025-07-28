@@ -1,6 +1,7 @@
 "use client";
 
 import { Typography } from "antd";
+import { useEffect } from "react";
 import { useOrderFormStore } from "../../../stores/useOrderFormStore";
 import {
   OrderData,
@@ -47,10 +48,19 @@ export default function CreateOrderForm({ onSubmit }: CreateOrderFormProps) {
     }
   };
 
+  useEffect(() => {
+    // Reset form when component mounts
+    resetForm();
+  }, [resetForm]);
+
   return (
     <div style={{ padding: "0 16px" }}>
       {/* Header Section */}
-      <div style={{}}>
+      <div
+        style={{
+          marginBottom: 24,
+        }}
+      >
         <Title
           level={3}
           style={{

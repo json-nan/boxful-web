@@ -1,9 +1,10 @@
-export const Package = () => {
+export const Package = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="30"
       height="31"
       viewBox="0 0 30 31"
+      {...props}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

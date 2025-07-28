@@ -7,8 +7,8 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   PlusOutlined,
+  SearchOutlined,
   UserOutlined,
-  VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Layout, theme } from "antd";
 import { usePathname, useRouter } from "next/navigation";
@@ -48,7 +48,7 @@ const AuthenticatedLayout: React.FC<{ children: React.ReactNode }> = ({
     },
     {
       key: "/orders",
-      icon: <VideoCameraOutlined />,
+      icon: <SearchOutlined />,
       label: "Historial",
       onClick: () => router.push("/orders"),
     },

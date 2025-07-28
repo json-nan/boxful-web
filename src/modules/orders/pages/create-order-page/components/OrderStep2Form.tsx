@@ -212,13 +212,34 @@ export default function OrderStep2Form({ onComplete }: OrderStep2FormProps) {
         }}
       >
         <Space direction="vertical" style={{ width: "100%" }}>
-          {items.map((item, index) => (
-            <AddedItem
-              key={index}
-              item={item}
-              onRemove={() => handleRemoveItem(index)}
-            />
-          ))}
+          {items.length === 0 ? (
+            <div
+              style={{
+                textAlign: "center",
+                padding: "40px 20px",
+                color: "#8c8c8c",
+              }}
+            >
+              <Package
+                style={{ fontSize: 48, marginBottom: 16, opacity: 0.5 }}
+              />
+              <Text style={{ fontSize: 16, color: "#8c8c8c" }}>
+                No hay paquetes agregados
+              </Text>
+              <br />
+              <Text style={{ fontSize: 14, color: "#bfbfbf" }}>
+                Agrega un paquete usando el formulario de arriba
+              </Text>
+            </div>
+          ) : (
+            items.map((item, index) => (
+              <AddedItem
+                key={index}
+                item={item}
+                onRemove={() => handleRemoveItem(index)}
+              />
+            ))
+          )}
         </Space>
       </Card>
       {/* Action Buttons */}
@@ -241,8 +262,6 @@ export default function OrderStep2Form({ onComplete }: OrderStep2FormProps) {
           onClick={handleSubmit}
           disabled={items.length === 0}
           style={{
-            backgroundColor: "#2e49ce",
-            borderColor: "#2e49ce",
             height: 47,
             fontSize: 16,
             fontWeight: 600,
