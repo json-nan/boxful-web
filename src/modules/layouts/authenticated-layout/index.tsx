@@ -5,13 +5,14 @@ import "./layout.css";
 import { LogoType } from "@/components/svg/LogoType";
 import { getFullNameFromToken } from "@/libs/jwt";
 import {
+  LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   PlusOutlined,
   SearchOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Flex, Layout, theme } from "antd";
+import { Button, Flex, Layout, theme } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -59,6 +60,11 @@ const AuthenticatedLayout: React.FC<{ children: React.ReactNode }> = ({
     menuItems.find((item) => pathname.startsWith(item.key))?.key ||
     "/dashboard";
 
+  const handleSignOut = () => {
+    localStorage.removeItem("access_token");
+    router.push("/auth/sign-in");
+  };
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider
@@ -83,101 +89,134 @@ const AuthenticatedLayout: React.FC<{ children: React.ReactNode }> = ({
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            justifyContent: "flex-start",
+            justifyContent: "space-between",
             padding: "40px 16px",
             gap: "32px",
             height: "100%",
           }}
         >
-          {/* Logo */}
-          <div
-            style={{
-              height: 40,
-              width: 260,
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            {!collapsed && (
-              <Flex gap={4}>
-                <IsoType />
-                <LogoType />
-              </Flex>
-            )}
-          </div>
-
-          {/* Menu Items */}
+          {/* Top Section */}
           <div
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: "24px",
-              width: collapsed ? 48 : 260,
-              alignItems: "stretch",
+              alignItems: "center",
+              gap: "32px",
+              width: "100%",
             }}
           >
-            {menuItems.map((item) => {
-              const isActive = selectedKey === item.key;
-              return (
-                <div
-                  key={item.key}
-                  onClick={item.onClick}
-                  style={{
-                    backgroundColor: isActive ? colorPrimary : "transparent",
-                    borderRadius: 8,
-                    padding: collapsed ? "12px" : "24px 32px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: collapsed ? 0 : 24,
-                    cursor: "pointer",
-                    justifyContent: collapsed ? "center" : "flex-start",
-                    transition: "all 0.2s",
-                    minHeight: 48,
-                    width: "100%",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.backgroundColor = "#f0f0f0";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.backgroundColor = "transparent";
-                    }
-                  }}
-                >
+            {/* Logo */}
+            <div
+              style={{
+                height: 40,
+                width: 260,
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {!collapsed && (
+                <Flex gap={4}>
+                  <IsoType />
+                  <LogoType />
+                </Flex>
+              )}
+            </div>
+
+            {/* Menu Items */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "24px",
+                width: collapsed ? 48 : 260,
+                alignItems: "stretch",
+              }}
+            >
+              {menuItems.map((item) => {
+                const isActive = selectedKey === item.key;
+                return (
                   <div
+                    key={item.key}
+                    onClick={item.onClick}
                     style={{
-                      fontSize: 16,
-                      color: isActive ? "#f6f6f6" : "#4e4c4c",
+                      backgroundColor: isActive ? colorPrimary : "transparent",
+                      borderRadius: 8,
+                      padding: collapsed ? "12px" : "24px 32px",
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center",
-                      width: 24,
-                      height: 24,
-                      flexShrink: 0,
+                      gap: collapsed ? 0 : 24,
+                      cursor: "pointer",
+                      justifyContent: collapsed ? "center" : "flex-start",
+                      transition: "all 0.2s",
+                      minHeight: 48,
+                      width: "100%",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.backgroundColor = "#f0f0f0";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                      }
                     }}
                   >
-                    {item.icon}
-                  </div>
-                  {!collapsed && (
                     <div
                       style={{
-                        fontFamily: "'Mona Sans', sans-serif",
-                        fontWeight: isActive ? 600 : 400,
                         fontSize: 16,
                         color: isActive ? "#f6f6f6" : "#4e4c4c",
-                        lineHeight: 1,
-                        flex: 1,
-                        textAlign: "left",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: 24,
+                        height: 24,
+                        flexShrink: 0,
                       }}
                     >
-                      {item.label}
+                      {item.icon}
                     </div>
-                  )}
-                </div>
-              );
-            })}
+                    {!collapsed && (
+                      <div
+                        style={{
+                          fontFamily: "'Mona Sans', sans-serif",
+                          fontWeight: isActive ? 600 : 400,
+                          fontSize: 16,
+                          color: isActive ? "#f6f6f6" : "#4e4c4c",
+                          lineHeight: 1,
+                          flex: 1,
+                          textAlign: "left",
+                        }}
+                      >
+                        {item.label}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Sign Out Button */}
+          <div
+            style={{
+              width: collapsed ? 48 : 260,
+              marginBottom: "16px",
+            }}
+          >
+            <Button
+              onClick={handleSignOut}
+              icon={<LogoutOutlined />}
+              block
+              style={{
+                height: 48,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: collapsed ? "center" : "flex-start",
+              }}
+            >
+              {!collapsed && "Cerrar sesión"}
+            </Button>
           </div>
         </div>
       </Sider>
