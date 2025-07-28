@@ -1,12 +1,14 @@
 "use client";
 
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 import { useLogin } from "@/modules/auth/_api/auth";
+import { getErrorMessage } from "@/utils/errorHandler";
 import {
   ArrowLeftOutlined,
   EyeInvisibleOutlined,
   EyeTwoTone,
 } from "@ant-design/icons";
-import { Button, Flex, Form, Input, Typography } from "antd";
+import { App, Button, Flex, Form, Input, Typography } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -18,9 +20,12 @@ interface LoginFormValues {
 }
 
 export default function LoginPage() {
+  useAuthGuard(); // Redirect to dashboard if already authenticated
+  
   const [form] = Form.useForm<LoginFormValues>();
   const router = useRouter();
   const { mutate: login, isPending } = useLogin();
+  const { notification } = App.useApp();
 
   const onFinish = async (values: LoginFormValues) => {
     login(values, {
@@ -28,7 +33,10 @@ export default function LoginPage() {
         router.push("/dashboard");
       },
       onError: (error) => {
-        console.error("Login failed:", error);
+        notification.error({
+          message: "Error al iniciar sesión",
+          description: getErrorMessage(error),
+        });
       },
     });
   };

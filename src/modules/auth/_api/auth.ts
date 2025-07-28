@@ -16,6 +16,11 @@ export const useSignUp = () => {
     mutationFn: async (data: SignUpData) => {
       return axios.post("/authentication/sign-up", data);
     },
+    onSuccess: (data) => {
+      if (data.data?.access_token) {
+        localStorage.setItem("access_token", data.data.access_token);
+      }
+    },
   });
 };
 

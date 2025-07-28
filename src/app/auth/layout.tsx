@@ -18,6 +18,12 @@ const theme = {
       fontSize: 14,
       colorPlaceholder: "#bfbfbf",
     },
+    InputNumber: {
+      borderRadius: 8,
+      controlHeight: 48,
+      fontSize: 14,
+      colorPlaceholder: "#bfbfbf",
+    },
     Select: {
       borderRadius: 8,
       controlHeight: 48,

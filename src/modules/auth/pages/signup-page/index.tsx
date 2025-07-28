@@ -2,13 +2,16 @@
 
 import { Genders } from "@/catalogues/Genders";
 import { PhoneCodes } from "@/catalogues/PhoneCodes";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 import { useSignUp } from "@/modules/auth/_api/auth";
+import { getErrorMessage } from "@/utils/errorHandler";
 import {
   ArrowLeftOutlined,
   EyeInvisibleOutlined,
   EyeTwoTone,
 } from "@ant-design/icons";
 import {
+  App,
   Button,
   Cascader,
   Col,
@@ -16,11 +19,21 @@ import {
   Flex,
   Form,
   Input,
+  InputNumber,
   Row,
   Select,
+  Typography,
 } from "antd";
+import dayjs from "dayjs";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import NumberConfirmationDialog from "./components/NumberConfirmationDialog";
+
+const { Text } = Typography;
+
+const eighteenYearsAgo = dayjs().subtract(18, "year");
+const maxDate = dayjs().subtract(18, "year");
 
 interface SignupFormValues {
   name: string;
@@ -34,9 +47,13 @@ interface SignupFormValues {
 }
 
 export default function SignupPage() {
+  useAuthGuard();
+
   const [form] = Form.useForm<SignupFormValues>();
   const [confirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
   const signUpMutation = useSignUp();
+  const router = useRouter();
+  const { notification } = App.useApp();
 
   const onFinish = async () => {
     setConfirmationDialogOpen(true);
@@ -45,13 +62,25 @@ export default function SignupPage() {
   const handleOk = async () => {
     setConfirmationDialogOpen(false);
     const formValues = form.getFieldsValue();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { confirmPassword, ...signUpData } = formValues;
-    
-    try {
-      await signUpMutation.mutateAsync(signUpData);
-    } catch (error) {
-      console.error("Sign up failed:", error);
-    }
+
+    signUpMutation.mutate(signUpData, {
+      onSuccess: () => {
+        notification.success({
+          message: "Cuenta creada exitosamente",
+          description: "Tu cuenta ha sido creada correctamente.",
+        });
+
+        router.push("/dashboard");
+      },
+      onError: (error) => {
+        notification.error({
+          message: "Error al crear la cuenta",
+          description: getErrorMessage(error),
+        });
+      },
+    });
   };
 
   return (
@@ -142,6 +171,7 @@ export default function SignupPage() {
                 <Form.Item
                   label="Fecha de nacimiento"
                   name="birth_date"
+                  initialValue={eighteenYearsAgo}
                   rules={[
                     {
                       required: true,
@@ -152,6 +182,9 @@ export default function SignupPage() {
                   <DatePicker
                     placeholder="Seleccionar"
                     style={{ width: "100%" }}
+                    disabledDate={(current) => {
+                      return current && current.isAfter(maxDate, "day");
+                    }}
                   />
                 </Form.Item>
               </Col>
@@ -185,10 +218,15 @@ export default function SignupPage() {
                       required: true,
                       message: "Por favor ingresa tu número de WhatsApp",
                     },
+                    {
+                      max: 8,
+                      message: "El número debe tener 8 dígitos",
+                    },
                   ]}
                 >
                   <Flex className="phone-container">
-                    <Input
+                    <InputNumber
+                      style={{ width: "100%" }}
                       addonBefore={
                         <Cascader
                           style={{ width: 80 }}
@@ -273,6 +311,18 @@ export default function SignupPage() {
               Siguiente
             </Button>
           </Form>
+
+          <div style={{ textAlign: "center", marginTop: "16px" }}>
+            <Text style={{ color: "#666" }}>
+              ¿Ya tienes una cuenta?{" "}
+              <Link
+                href="/auth/sign-in"
+                style={{ color: "#1890ff", textDecoration: "none" }}
+              >
+                Inicia sesión aquí
+              </Link>
+            </Text>
+          </div>
         </div>
       </Flex>
     </>

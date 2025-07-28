@@ -1,5 +1,6 @@
 "use client";
 
+import { getErrorMessage } from "@/utils/errorHandler";
 import { App } from "antd";
 import { useRouter } from "next/navigation";
 import { useCreateOrder } from "../../_api/orders";
@@ -24,7 +25,7 @@ export default function CreateOrderPage() {
       onError: (error) => {
         notification.error({
           message: "Error al crear la orden",
-          description: error.message || "Ocurrió un error al crear la orden.",
+          description: getErrorMessage(error),
         });
       },
     });
