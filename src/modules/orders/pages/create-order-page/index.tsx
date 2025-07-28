@@ -11,13 +11,14 @@ export default function CreateOrderPage() {
   const router = useRouter();
   const { notification } = App.useApp();
 
-  const handleOrderSubmit = (data: OrderData) => {
+  const handleOrderSubmit = (data: OrderData, resetForm: () => void) => {
     createOrderMutation.mutate(data, {
       onSuccess: () => {
         notification.success({
           message: "Orden creada correctamente",
           description: "La orden ha sido creada exitosamente.",
         });
+        resetForm();
         router.push("/orders");
       },
       onError: (error) => {

@@ -13,7 +13,7 @@ import OrderStep2Form from "./OrderStep2Form";
 const { Title, Text } = Typography;
 
 interface CreateOrderFormProps {
-  onSubmit?: (data: OrderData) => void;
+  onSubmit?: (data: OrderData, resetForm: () => void) => void;
 }
 
 export default function CreateOrderForm({ onSubmit }: CreateOrderFormProps) {
@@ -42,8 +42,7 @@ export default function CreateOrderForm({ onSubmit }: CreateOrderFormProps) {
       };
 
       if (onSubmit) {
-        onSubmit(completeOrderData);
-        resetForm();
+        onSubmit(completeOrderData, resetForm);
       }
     }
   };

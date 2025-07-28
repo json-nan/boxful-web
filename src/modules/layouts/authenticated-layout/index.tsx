@@ -34,10 +34,10 @@ const AuthenticatedLayout: React.FC<{ children: React.ReactNode }> = ({
       onClick: () => router.push("/dashboard"),
     },
     {
-      key: "/create-order",
+      key: "/orders/create",
       icon: <PlusOutlined />,
       label: "Crear orden",
-      onClick: () => router.push("/create-order"),
+      onClick: () => router.push("/orders/create"),
     },
     {
       key: "/orders",

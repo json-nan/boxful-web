@@ -33,6 +33,7 @@ export default function OrderStep1Form({
 }: OrderStep1FormProps) {
   const [form] = Form.useForm();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = (values: any) => {
     const formData: OrderFormStep1Data = {
       pickup_address: values.pickup_address,
@@ -69,18 +70,7 @@ export default function OrderStep1Form({
         indications: initialData.indications,
       }
     : {
-        pickup_address: "Colonia Las Magnolias, calle militar 1, San Salvador",
-        name: "Gabriela Reneé",
-        last_name: "Días López",
-        email: "gabbydiaz@gmail.com",
         phone_code: "503",
-        phone: "7777 7777",
-        deliver_address:
-          "Final 49 Av. Sur y Bulevar Los Próceres, Smartcenter, Bodega #8, San Salvador",
-        city: "San Salvador",
-        municipality: "San Salvador",
-        reference_place: "Cerca de redondel Arbol de la Paz",
-        indications: "Llamar antes de entregar",
       };
 
   return (
@@ -322,6 +312,7 @@ export default function OrderStep1Form({
                   Punto de referencia
                 </Text>
               }
+              rules={[{ required: true, message: "Campo requerido" }]}
             >
               <Input
                 style={{ height: 48, fontSize: 14 }}
@@ -339,6 +330,7 @@ export default function OrderStep1Form({
               Indicaciones
             </Text>
           }
+          rules={[{ required: true, message: "Campo requerido" }]}
         >
           <Input
             style={{ height: 48, fontSize: 14 }}

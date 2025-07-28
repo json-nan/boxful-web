@@ -44,6 +44,7 @@ export default function OrderStep2Form({ onComplete }: OrderStep2FormProps) {
     setStep2Data({ items });
   }, [items, setStep2Data]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleAddItem = (values: any) => {
     const newItem: OrderItem = {
       width: values.width,
@@ -55,13 +56,6 @@ export default function OrderStep2Form({ onComplete }: OrderStep2FormProps) {
 
     setItems([...items, newItem]);
     addForm.resetFields();
-    addForm.setFieldsValue({
-      width: 15,
-      height: 15,
-      length: 15,
-      weight: 3,
-      content: "",
-    });
   };
 
   const handleRemoveItem = (index: number) => {
@@ -108,13 +102,7 @@ export default function OrderStep2Form({ onComplete }: OrderStep2FormProps) {
           form={addForm}
           layout="vertical"
           onFinish={handleAddItem}
-          initialValues={{
-            width: 15,
-            height: 15,
-            length: 15,
-            weight: 3,
-            content: "iPhone 14 pro Max",
-          }}
+          initialValues={{}}
         >
           <Row gutter={20} align="bottom">
             {/* Package Icon and Dimensions */}
