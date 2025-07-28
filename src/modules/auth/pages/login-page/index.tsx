@@ -6,8 +6,11 @@ import {
   EyeInvisibleOutlined,
   EyeTwoTone,
 } from "@ant-design/icons";
-import { Button, Flex, Form, Input } from "antd";
+import { Button, Flex, Form, Input, Typography } from "antd";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+const { Text } = Typography;
 
 interface LoginFormValues {
   email: string;
@@ -101,6 +104,15 @@ export default function LoginPage() {
             Iniciar sesión
           </Button>
         </Form>
+        
+        <div style={{ textAlign: "center", marginTop: "16px" }}>
+          <Text style={{ color: "#666" }}>
+            ¿No tienes una cuenta?{" "}
+            <Link href="/auth/sign-up" style={{ color: "#1890ff", textDecoration: "none" }}>
+              Regístrate aquí
+            </Link>
+          </Text>
+        </div>
       </div>
     </Flex>
   );

@@ -1,4 +1,5 @@
 "use client";
+import { IsoType } from "@/components/svg/IsoType";
 import "./layout.css";
 
 import { LogoType } from "@/components/svg/LogoType";
@@ -10,7 +11,7 @@ import {
   SearchOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Layout, theme } from "antd";
+import { Flex, Layout, theme } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -97,7 +98,12 @@ const AuthenticatedLayout: React.FC<{ children: React.ReactNode }> = ({
               alignItems: "center",
             }}
           >
-            {!collapsed && <LogoType />}
+            {!collapsed && (
+              <Flex gap={4}>
+                <IsoType />
+                <LogoType />
+              </Flex>
+            )}
           </div>
 
           {/* Menu Items */}
