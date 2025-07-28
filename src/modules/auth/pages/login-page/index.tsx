@@ -27,7 +27,7 @@ export default function LoginPage() {
   const { mutate: login, isPending } = useLogin();
   const { notification } = App.useApp();
 
-  const onFinish = async (values: LoginFormValues) => {
+  const onFinish = (values: LoginFormValues) => {
     login(values, {
       onSuccess: () => {
         router.push("/dashboard");
@@ -62,6 +62,9 @@ export default function LoginPage() {
           form={form}
           layout="vertical"
           onFinish={onFinish}
+          onFinishFailed={() => {
+            // Prevent any default behavior on form validation failure
+          }}
           requiredMark={false}
         >
           <Form.Item

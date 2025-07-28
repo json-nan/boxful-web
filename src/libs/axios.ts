@@ -37,6 +37,12 @@ axios.interceptors.response.use(
     const originalRequest = error.config;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
+      // Don't try to refresh token for authentication endpoints
+      if (originalRequest.url?.includes('/authentication/sign-in') || 
+          originalRequest.url?.includes('/authentication/sign-up')) {
+        return Promise.reject(error);
+      }
+
       const token = localStorage.getItem("access_token");
 
       if (!token) {

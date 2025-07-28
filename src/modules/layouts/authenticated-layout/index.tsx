@@ -31,7 +31,7 @@ const AuthenticatedLayout: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer, borderRadiusLG, colorPrimary },
   } = theme.useToken();
 
   const menuItems = [
@@ -123,7 +123,7 @@ const AuthenticatedLayout: React.FC<{ children: React.ReactNode }> = ({
                   key={item.key}
                   onClick={item.onClick}
                   style={{
-                    backgroundColor: isActive ? "#2e49ce" : "transparent",
+                    backgroundColor: isActive ? colorPrimary : "transparent",
                     borderRadius: 8,
                     padding: collapsed ? "12px" : "24px 32px",
                     display: "flex",

@@ -273,14 +273,14 @@ export default function OrderStep1Form({
                 <Text
                   style={{ fontSize: 12, fontWeight: 600, color: "#050817" }}
                 >
-                  Ciudad
+                  Departamento
                 </Text>
               }
               rules={[{ required: true, message: "Campo requerido" }]}
             >
               <Input
                 style={{ height: 48, fontSize: 14 }}
-                placeholder="Ciudad"
+                placeholder="Departamento"
               />
             </Form.Item>
           </Col>
