@@ -2,6 +2,7 @@
 import "./layout.css";
 
 import { LogoType } from "@/components/svg/LogoType";
+import { getFullNameFromToken } from "@/libs/jwt";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -11,7 +12,7 @@ import {
 } from "@ant-design/icons";
 import { Layout, theme } from "antd";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const { Header, Content, Sider } = Layout;
 
@@ -19,8 +20,14 @@ const AuthenticatedLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const [userName, setUserName] = useState<string | null>(null);
   const router = useRouter();
   const pathname = usePathname();
+
+  useEffect(() => {
+    const name = getFullNameFromToken();
+    setUserName(name);
+  }, []);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -175,14 +182,33 @@ const AuthenticatedLayout: React.FC<{ children: React.ReactNode }> = ({
           transition: "margin-left 0.2s",
         }}
       >
-        <Header style={{ padding: 0, background: colorBgContainer }}>
-          {React.createElement(
-            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-            {
-              className: "trigger",
-              onClick: () => setCollapsed(!collapsed),
-            }
-          )}
+        <Header
+          style={{
+            padding: "0 16px",
+            background: colorBgContainer,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+          id="header"
+        >
+          <div>
+            {React.createElement(
+              collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+              {
+                className: "trigger",
+                onClick: () => setCollapsed(!collapsed),
+              }
+            )}
+          </div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            {userName && (
+              <span style={{ marginRight: 16, fontWeight: 500 }}>
+                {userName}
+              </span>
+            )}
+            <UserOutlined style={{ fontSize: 20 }} />
+          </div>
         </Header>
         <Content
           style={{
