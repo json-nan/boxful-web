@@ -1,0 +1,131 @@
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+}
+
+.signup-left-column {
+  width: 50%;
+  background-color: #f5f5f5;
+  padding: 60px 80px;
+  overflow-y: auto;
+}
+
+.signup-right-column {
+  width: 50%;
+  background-image: url("https://img.freepik.com/free-photo/still-life-device-table_23-2150994356.jpg?t=st=1753490902~exp=1753494502~hmac=28dd3904e99764cce806b0103ca542d739d4fab359f9fcf674ec198ee1237552&w=2000");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.signup-form-container {
+  width: 100%;
+}
+
+.signup-header {
+  margin-bottom: 40px;
+}
+
+.signup-back-button {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  padding: 0;
+}
+
+.signup-back-button:hover {
+  color: #333;
+}
+
+.signup-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 12px 0;
+}
+
+.signup-subtitle {
+  color: #666;
+  margin: 0;
+  font-size: 16px;
+}
+
+.phone-container {
+  display: flex;
+  gap: 8px;
+}
+
+.phone-container .country-code {
+  width: 80px;
+}
+
+.phone-container .phone-number {
+  flex: 1;
+}
+
+.signup-submit-button {
+  width: 100%;
+  margin-top: 32px;
+}
+
+/* Responsive adjustments for different desktop viewports */
+@media (max-width: 1440px) {
+  .signup-left-column {
+    padding: 40px 60px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .signup-left-column {
+    padding: 40px 40px;
+  }
+
+  .signup-form-container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .signup-container {
+    flex-direction: column;
+  }
+
+  .signup-left-column,
+  .signup-right-column {
+    width: 100%;
+  }
+
+  .signup-right-column {
+    min-height: 40vh;
+    order: -1;
+  }
+
+  .signup-left-column {
+    padding: 40px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .signup-left-column {
+    padding: 20px;
+  }
+
+  .signup-right-column {
+    min-height: 30vh;
+  }
+
+  .signup-title {
+    font-size: 24px;
+  }
+
+  .signup-subtitle {
+    font-size: 14px;
+  }
+}
